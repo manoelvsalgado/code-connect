@@ -6,4 +6,4 @@ cmds = ["npm --prefix backend run build"]
 dependsOn = ["install"]
 
 [start]
-cmd = "cd backend && node dist/main"
+cmd = "cd backend && node dist/src/main.js"
