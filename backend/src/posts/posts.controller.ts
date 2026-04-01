@@ -45,7 +45,7 @@ export class PostsController {
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Criar novo post' })
   @ApiBody({
-    description: 'Dados do post com imagem obrigatória',
+    description: 'Dados do post com imagem opcional',
     type: 'multipart/form-data',
     schema: {
       type: 'object',
@@ -56,7 +56,7 @@ export class PostsController {
         image: {
           type: 'string',
           format: 'binary',
-          description: 'Arquivo de imagem para usar como capa (obrigatório)',
+          description: 'Arquivo de imagem para usar como capa (opcional)',
         },
       },
     },

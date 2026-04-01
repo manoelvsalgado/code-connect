@@ -1,0 +1,42 @@
+export const en = {
+  nav: {
+    brand: 'Code Connect',
+    feed: 'Feed',
+    create: 'Create Post',
+    login: 'Sign In',
+    logout: 'Sign Out',
+  },
+  common: {
+    loading: 'Loading...',
+    send: 'Send',
+    search: 'Search',
+    language: 'Language',
+    empty: 'No items found.',
+  },
+  auth: {
+    title: 'Sign in or create your account',
+    subtitle: 'Publish, comment, and share your programming ideas.',
+    register: 'Create Account',
+    login: 'Sign In',
+    name: 'Name',
+    email: 'Email',
+    password: 'Password',
+    switchToRegister: 'Need an account? Register',
+    switchToLogin: 'Already have an account? Sign in',
+  },
+  feed: {
+    heading: 'Latest stories from dev community',
+    searchPlaceholder: 'Search by title or content',
+    noResults: 'No posts match your search.',
+  },
+  post: {
+    comments: 'Comments',
+    writeComment: 'Write your comment',
+    createTitle: 'Create a new post',
+    title: 'Title',
+    body: 'Body',
+    markdown: 'Markdown',
+    image: 'Cover image',
+    submit: 'Publish post',
+  },
+}

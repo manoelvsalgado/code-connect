@@ -18,13 +18,6 @@ export class PostsService {
     file?: Express.Multer.File,
     userId?: string,
   ) {
-    // Valida se o arquivo foi enviado
-    if (!file) {
-      throw new BadRequestException(
-        'É necessário enviar uma imagem para o post',
-      );
-    }
-
     // Valida se o userId foi fornecido
     if (!userId) {
       throw new BadRequestException('Usuário não autenticado');
@@ -50,10 +43,15 @@ export class PostsService {
       slug = newSlug;
     }
 
+    const appUrl = process.env.APP_URL || 'http://localhost:3000';
+    const cover = file
+      ? `${appUrl}/uploads/${file.filename}`
+      : 'https://placehold.co/1200x630?text=Code+Connect';
+
     const data = {
       ...createPostDto,
       slug,
-      cover: `${process.env.APP_URL || 'http://localhost:3000'}/uploads/${file.filename}`,
+      cover,
       authorId: userId,
       likes: 0,
     };
