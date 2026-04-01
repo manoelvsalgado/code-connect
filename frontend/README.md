@@ -49,8 +49,21 @@ Frontend em `http://localhost:5173`
 npm run build
 ```
 
+## Deploy no Vercel
+
+1. Importe este repositorio no Vercel.
+2. Configure o projeto com Root Directory `frontend`.
+3. Defina a variavel de ambiente:
+
+```env
+VITE_API_URL=https://seu-backend.up.railway.app
+```
+
+4. Execute o deploy.
+5. Atualize no backend (`CORS_ORIGIN`) com a URL publica do Vercel.
+
 ## Observacoes
 
 - O backend precisa estar rodando em paralelo.
 - As rotas protegidas exigem token JWT retornado pelo backend.
-- O backend atual usa CORS para `http://localhost:5173`.
+- Em producao, o backend deve liberar CORS para a URL publica do Vercel.

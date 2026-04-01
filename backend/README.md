@@ -297,9 +297,32 @@ sqlite3 prisma/dev.db .dump > backup/database-backup.sql
 - Usuários só podem editar/excluir próprio conteúdo
 
 ### 🚀 **Deploy:**
-- Configure `APP_URL` para seu domínio em produção
-- Considere usar variáveis de ambiente para JWT_SECRET
+- Defina variáveis obrigatórias em produção:
+  - `DATABASE_URL` (Postgres de produção)
+  - `JWT_SECRET` (segredo forte, sem fallback)
+  - `APP_URL` (URL pública do backend)
+  - `CORS_ORIGIN` (URL pública do frontend)
+  - `PORT` (opcional, fornecida pela plataforma)
+- Execute migrações com `npx prisma migrate deploy`
 - Uploads podem precisar ser movidos para storage externo
+
+### Railway (backend) + Postgres
+
+1. Crie um projeto no Railway e conecte este repositorio.
+2. Adicione um servico Postgres no mesmo projeto.
+3. Crie um servico para o backend apontando para a pasta `backend/`.
+4. Configure no backend as variaveis:
+  - `DATABASE_URL` = URL do Postgres gerado pelo Railway
+  - `JWT_SECRET` = segredo forte
+  - `APP_URL` = URL publica do backend Railway
+  - `CORS_ORIGIN` = URL publica do frontend (Vercel)
+5. Build command: `npm run build`
+6. Start command: `npm run start:prod`
+7. Depois do primeiro deploy, rode migracoes no shell do servico:
+
+```bash
+npm run prisma:migrate:deploy
+```
 
 ---
 
