@@ -1,0 +1,9 @@
+[phases.install]
+cmds = ["npm --prefix backend ci"]
+
+[phases.build]
+cmds = ["npm --prefix backend run build"]
+dependsOn = ["install"]
+
+[start]
+cmd = "cd backend && node dist/main"

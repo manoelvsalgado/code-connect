@@ -21,7 +21,7 @@ async function bootstrap() {
   });
 
   // Configuração para servir arquivos estáticos
-  app.useStaticAssets(join(process.cwd(), 'uploads'), {
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads/',
   });
 
