@@ -5,11 +5,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import * as serverlessExpress from 'serverless-express';
 
-let app: NestExpressApplication;
+let server: any;
 
 async function bootstrap() {
-  app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
   const allowedOrigins = corsOrigin
     .split(',')
@@ -46,12 +47,16 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.init();
+
+  const expressApp = app.getHttpAdapter().getInstance();
+  server = serverlessExpress({ app: expressApp });
+
+  return server;
 }
 
 export default async (req: any, res: any) => {
-  if (!app) {
+  if (!server) {
     await bootstrap();
   }
-  const expressApp = app.getHttpAdapter().getInstance();
-  return expressApp(req, res);
+  return server(req, res);
 };
