@@ -6,8 +6,10 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { AppModule } from './app.module';
 
+let app: NestExpressApplication;
+
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app = await NestFactory.create<NestExpressApplication>(AppModule);
   const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
   const allowedOrigins = corsOrigin
     .split(',')
@@ -43,7 +45,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  const port = Number(process.env.PORT) || 3000;
-  await app.listen(port, '0.0.0.0');
+  await app.init();
 }
-bootstrap();
+
+export default async (req: any, res: any) => {
+  if (!app) {
+    await bootstrap();
+  }
+  const expressApp = app.getHttpAdapter().getInstance();
+  return expressApp(req, res);
+};
